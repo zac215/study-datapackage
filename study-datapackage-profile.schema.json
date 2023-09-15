@@ -1,0 +1,189 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "title": "Study Data Package",
+  "description": "Data exchange format for scientific research studies.",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "https://frictionlessdata.io/schemas/data-package.json"
+    },
+    {
+      "required": [
+        "id",
+        "name",
+        "version",
+        "profile",
+        "language",
+        "created",
+        "licenses",
+        "study",
+        "resources"
+      ],
+      "properties": {
+        "profile": {
+          "description": "See [Data Package specification](https://specs.frictionlessdata.io/data-package/#profile). Study Data Package  further requires this to be the URL of the used Study Data Package Profile version (e.g. `https://raw.githubusercontent.com/tdwg/camtrap-dp/1.0/camtrap-dp-profile.json`).",
+          "format": "uri"
+        },
+        "name": {
+          "description": "See [Data Package specification](https://specs.frictionlessdata.io/data-package/#name)."
+        },
+        "language": {
+          "description": "Language in which the datapackage properties are given"
+        },
+        "id": {
+          "description": "See [Data Package specification](https://specs.frictionlessdata.io/data-package/#id)."
+        },
+        "created": {
+          "description": "See [Data Package specification](https://specs.frictionlessdata.io/data-package/#created). Camtrap DP makes this a required property."
+        },
+        "contributors": {
+          "description": "See [Data Package specification](https://specs.frictionlessdata.io/data-package/#contributors). Camtrap DP makes this a required property and restricts `role` values. Can include people and organizations.",
+          "items": {
+            "properties": {
+              "role": {
+                "description": "Role of the contributor. Defaults to `contributor`."
+              }
+            }
+          }
+        },
+        "version": {
+          "description": "See [Data Package specification](https://specs.frictionlessdata.io/data-package/#version)."
+        },
+
+        "sources": {
+          "description": "See [Data Package specification](https://specs.frictionlessdata.io/data-package/#sources). Can include the data management platform from which the package was derived (e.g. Agouti, Trapper, Wildlife Insights)."
+        },
+        "licenses": {
+          "description": "See [Data Package specification](https://specs.frictionlessdata.io/data-package/#licenses). "
+        },
+
+        "resources": {
+          "description": "See [Data Package specification](https://specs.frictionlessdata.io/data-package/#resource-information).",
+          "items": {
+            "required": ["name", "title", "path", "description"],
+            "properties": {
+              "name": {
+                "description": "See [Data Resource specification](https://specs.frictionlessdata.io/data-resource/#name)."
+              },
+              "title": {
+                "description": "See [Data Resource specification](https://specs.frictionlessdata.io/data-resource/#title)."
+              },
+              "path": {
+                "description": "See [Data Resource specification](https://specs.frictionlessdata.io/data-resource/#path)."
+              },
+              "description": {
+                "description": "See [Data Resource specification](https://specs.frictionlessdata.io/data-resource/#optional-properties)."
+              }
+            }
+          },
+          "study": {
+            "description": "Study that originated the package",
+            "type": "object",
+            "required": ["title", "authors", "field", "subField","keywords"],
+            "properties": {
+              "title": {
+                "description": "Title of the study",
+                "type": "string"
+              },
+              "authors": {
+                "description": "Authors of the study",
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "required": ["name", "affiliation", "department"],
+                  "properties": {
+                    "name": {
+                      "description": "Authors of the study",
+                      "type": "array"
+                    },
+                    "orcid": {
+                      "description": "The ORCID identifier of the author ",
+                      "type": "string"
+                    },
+
+                    "affiliation": {
+                      "description": "Research center or school the author is affiliated to",
+                      "type": "string"
+                    },
+                    "department": {
+                      "description": "Department the author is affiliated to",
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "field": {
+                "description": "The main scientific field to which the study belongs",
+                "type": "string"
+              },
+              "subField": {
+                "description": "A more specific field of study within the main field.",
+                "type": "string"
+              },
+              "keywords": {
+                "description": "Keywords which indentify the study.",
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+
+              "relatedPublication": {
+                "description": "A list of publications related to the current package.",
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "identifier": {
+                      "description": "Identifier of the publication",
+                      "type": "string"
+                    },
+                    "identifierType": {
+                      "description": "Type of the identifier of the publication",
+                      "type": "string"
+                    },
+                    "relationType": {
+                      "description": "Type of relation between the current package and the related publication",
+                      "type": "string"
+                    },
+                    "coomment": {
+                      "description": "More information between the current package and the related publication",
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "concernedCities": {
+                "description": "List of cities concerned by the study",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "contributors": {
+                "description": "List of  people or organizations who contributed to the study",
+                "type": "array",
+                "items": {
+                  "required": ["name", "type", "role"],
+                  "properties": {
+                    "name": {
+                      "description": "Name of the contributor",
+                      "type": "string"
+                    },
+                    "type": {
+                      "description": "Type of the contributor",
+                      "type": "string"
+                    },
+                    "role": {
+                      "description": "Role of the contributor",
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}
