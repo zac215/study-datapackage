@@ -16,8 +16,7 @@
         "language",
         "created",
         "licenses",
-        "study",
-        "resources"
+        "study"
       ],
       "properties": {
         "profile": {
